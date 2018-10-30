@@ -41,7 +41,7 @@ public class SampleScene : MonoBehaviour {
     }
 
     private void emitSave () {
-        ScreenShotAtsumaru.Snap(this);
+        ScreenShotAtsumaru.Snap();
     }
 
     // Use this for initialization

@@ -1,29 +1,32 @@
 var SSA = {
 
-  $funcs : {},
-
-  SetDataUrl : function (dataUrl) {
-    funcs.dataUrl = Pointer_stringify(dataUrl);
-  },
+  $state : {},
 
   SetPtr : function (ptr) {
-    funcs.ptr = ptr;
+    state.ptr = ptr;
   },
 
   OpenSSA : function () {
     if (window.RPGAtsumaru && window.RPGAtsumaru.experimental && window.RPGAtsumaru.experimental.screenshot && window.RPGAtsumaru.experimental.screenshot.displayModal) { window.RPGAtsumaru.experimental.screenshot.displayModal() }
   },
 
+  Resolve : function (dataUrl) {
+    state.resolver(Pointer_stringify(dataUrl));
+  },
+
   RegisterSSA : function () {
     if (window.RPGAtsumaru && window.RPGAtsumaru.playerFeatures && ! window.RPGAtsumaru.playerFeatures.takeScreenShot) {
       var f = function () {
-        Runtime.dynCall('v', funcs.ptr, 0);
-        return funcs.dataUrl;
+        state.dataUrl = null;
+        return new Promise(function (resolve) {
+          state.resolver = resolve;
+          Runtime.dynCall('v', state.ptr, 0);
+        });
       };
       window.RPGAtsumaru.playerFeatures.takeScreenShot = f;
     }
   }
 };
 
-autoAddDeps(SSA, '$funcs');
+autoAddDeps(SSA, '$state');
 mergeInto(LibraryManager.library, SSA);
