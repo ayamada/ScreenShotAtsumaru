@@ -5,26 +5,21 @@ unityからアツマールのスクショ機能を使うためのunityプラグ�
 
 # 動作サンプル
 
-https://game.nicovideo.jp/atsumaru/games/gm8662?key=59c32b96956b
+- https://game.nicovideo.jp/atsumaru/games/gm8662?key=59c32b96956b
+
 「ロードが完全に完了して」から、右上のカメラボタンを押したり、ゲーム内のスクショボタンを押したりしてみてください。
 
 
 # つかいかた
 
-1
+1. githubのページの [releases](https://github.com/ayamada/ScreenShotAtsumaru/releases) のところからunitypackageをダウンロードして自分のプロジェクトに導入してください。
 
-githubのページの [releases](https://github.com/ayamada/ScreenShotAtsumaru/releases) のところから、unitypackageをダウンロードして自分のプロジェクトに導入してください。
+2. 可能な限り早い段階で `ScreenShotAtsumaru.Install();` を実行してください(タイトル画面のAwake内とかが望ましいです)。
+    - これでスクショボタン回りの処理がインストールされ、右上のカメラボタンが機能するようになります。
+    - なおInstall()実行前にカメラボタンを押されるとエラー判定が残ってしまうらしく、そうなるとInstall()実行後も動かなくなるようです。
 
-2
-
-可能な限り早い段階で `ScreenShotAtsumaru.Install();` を実行してください(タイトル画面のAwake内とかが望ましいです)。
-これでスクショボタン回りの処理がインストールされ、右上のカメラボタンが機能するようになります。
-なおInstall()実行前にカメラボタンを押されるとエラー判定が残ってしまうらしく、そうなるとInstall()実行後も動かなくなるようです。
-
-3
-
-ゲーム内からスクショを取得してスクショサブウィンドウを開きたい時は `ScreenShotAtsumaru.Snap();` を実行してください(※0.1.0から引数なしに変更されました)。
-実行してから1フレーム経過後にスクショを取得してツイート用サブウィンドウが開きます(即座ではないので注意してください)。
+3. ゲーム内からスクショを取得してスクショサブウィンドウを開きたい時は `ScreenShotAtsumaru.Snap();` を実行してください(※0.1.0から引数なしに変更されました)。
+    - 実行してから1フレーム経過後にスクショを取得してツイート用サブウィンドウが開きます(即座ではないので注意してください)。
 
 
 # 注意点
