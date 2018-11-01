@@ -35,6 +35,8 @@ public static class ScreenShotAtsumaru {
 
   public static string fallbackDataUrl = "data:image/jpeg;base64,/9j/4QB1RXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAATAEbAAUAAAABAAAAVAEoAAMAAAABAAIAAIdpAAQAAAABAAAAPgAAAAAAAZJ8AAcAAAARAAAAXEgAAAABAAAASAAAAAEAAABDTElQIFNUVURJTyBQQUlOVP/tACxQaG90b3Nob3AgMy4wADhCSU0D7QAAAAAAEABIAAAAAQACAEgAAAABAAL/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAAQABADAREAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAP/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJgAAA//2Q==";
 
+  static GameObject tmpGo = null;
+
   static IEnumerator TakeScreenShot() {
     yield return new WaitForEndOfFrame();
     string dataUrl = MakeScreenShotDataUrl();
@@ -43,6 +45,8 @@ public static class ScreenShotAtsumaru {
     #else
     Debug.Log(dataUrl);
     #endif
+    MonoBehaviour.Destroy(tmpGo);
+    tmpGo = null;
   }
 
   class ScreenShotCoroutine : MonoBehaviour {
@@ -50,8 +54,10 @@ public static class ScreenShotAtsumaru {
 
   [MonoPInvokeCallback(typeof(Action))]
   public static void GenerateDataUrlLater() {
-    GameObject[] gos = SceneManager.GetActiveScene().GetRootGameObjects();
-    if (0 == gos.Length) {
+    /* race condition対策が必要。本当は複数のtmpGoを扱えるようにすべきだが、
+     * 今はダミー画像を返すだけにしておく
+     */
+    if (tmpGo != null) {
       #if UNITY_WEBGL && !UNITY_EDITOR
       Resolve(fallbackDataUrl);
       #else
@@ -59,10 +65,9 @@ public static class ScreenShotAtsumaru {
       #endif
     }
     else {
-      ScreenShotCoroutine ssc = gos[0].GetComponent<ScreenShotCoroutine>();
-      if (ssc == null) {
-        ssc = gos[0].AddComponent<ScreenShotCoroutine>();
-      }
+      tmpGo = new GameObject();
+      ScreenShotCoroutine ssc = tmpGo.AddComponent<ScreenShotCoroutine>();
+      SceneManager.MoveGameObjectToScene(tmpGo, SceneManager.GetActiveScene());
       ssc.StartCoroutine(TakeScreenShot());
     }
   }
