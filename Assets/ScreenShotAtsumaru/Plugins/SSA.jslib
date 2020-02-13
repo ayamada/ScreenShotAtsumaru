@@ -15,15 +15,21 @@ var SSA = {
   },
 
   RegisterSSA : function () {
-    if (window.RPGAtsumaru && window.RPGAtsumaru.playerFeatures && ! window.RPGAtsumaru.playerFeatures.takeScreenShot) {
-      var f = function () {
-        state.dataUrl = null;
-        return new Promise(function (resolve) {
-          state.resolver = resolve;
-          Runtime.dynCall('v', state.ptr, 0);
+    if (window.RPGAtsumaru && window.RPGAtsumaru.experimental && window.RPGAtsumaru.experimental.screenshot && window.RPGAtsumaru.experimental.screenshot.setScreenshotHandler) {
+      try {
+        window.RPGAtsumaru.experimental.screenshot.setScreenshotHandler(function () {
+          state.dataUrl = null;
+          return new Promise(function (resolve) {
+            state.resolver = resolve;
+            Runtime.dynCall('v', state.ptr, 0);
+          });
         });
-      };
-      window.RPGAtsumaru.playerFeatures.takeScreenShot = f;
+      }
+      catch (e) {
+        if (window.console) {
+          window.console.log("Failed to registerSSA");
+        }
+      }
     }
   }
 };
