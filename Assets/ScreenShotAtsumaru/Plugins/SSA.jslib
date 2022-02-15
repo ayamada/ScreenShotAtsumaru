@@ -11,7 +11,7 @@ var SSA = {
   },
 
   Resolve : function (dataUrl) {
-    state.resolver(Pointer_stringify(dataUrl));
+    state.resolver(UTF8ToString(dataUrl));
   },
 
   RegisterSSA : function () {
