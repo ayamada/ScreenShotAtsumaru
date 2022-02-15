@@ -40,6 +40,10 @@ unityからアツマールのスクショ機能を使うためのunityプラグ�
 
 # 更新情報
 
+- v0.1.3 (2022/02/16)
+    - Unity 2020.3.28f1 でコンパイルすると `The JavaScript function 'Pointer_stringify(ptrToSomeCString)' is obsoleted and will be removed in a future Unity version. Please call 'UTF8ToString(ptrToSomeCString)' instead.` のエラーが出てスクショが取れなくなっていた問題を修正
+    - サンプルプロジェクトが古い為 Unity 2020.3.28f1 で開くとあちこちおかしくなっていたのを修正(ライブラリ本体には影響なし)
+
 - v0.1.2 (2020/02/14)
     - アツマール側の更新により、古いAPIを叩くと例外が出るようになっていたので、新しいAPIを叩くよう変更
     - API実行時に例外が出た場合も処理を続行できるようtryで囲む
