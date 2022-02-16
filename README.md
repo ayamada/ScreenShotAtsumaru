@@ -2,6 +2,7 @@
 
 unityからアツマールのスクショ機能を使うためのunityプラグインです。
 
+***このプラグインは Unity 2021 以降向けです。 Unity 2020 以前で利用する場合は [ScreenShotAtsumaru-0.1.3](https://github.com/ayamada/ScreenShotAtsumaru/releases/tag/v0.1.3) を利用してください***
 
 # 動作サンプル
 
@@ -27,7 +28,7 @@ unityからアツマールのスクショ機能を使うためのunityプラグ�
 
 # 注意点
 
-- このプラグインはexperimentalなAPIを叩いています。アツマール側のアップデートに伴い、動かなくなる可能性が常にあります。ご了承ください。
+- このプラグインはアツマール側のアップデートに伴い、動かなくなる可能性が常にあります。ご了承ください。
 
 
 # ライセンス
@@ -39,6 +40,10 @@ unityからアツマールのスクショ機能を使うためのunityプラグ�
 
 
 # 更新情報
+
+- v1.0.0 (2022/02/17)
+    - Unity 2021.2.11f1 でのWebGLビルド実行が可能なように、dynCall回りを新しい呼び出し方法に変更
+        - ※この対応によりUnity 2020以前の環境では動かなくなります。Unity 2020以前の環境で利用したい場合は↓のv0.1.3を利用してください
 
 - v0.1.3 (2022/02/16)
     - Unity 2020.3.28f1 でWebGLビルドし実行すると `The JavaScript function 'Pointer_stringify(ptrToSomeCString)' is obsoleted and will be removed in a future Unity version. Please call 'UTF8ToString(ptrToSomeCString)' instead.` のエラーが出てスクショが取れなくなっていた問題を修正
